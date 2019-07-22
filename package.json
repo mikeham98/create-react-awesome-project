@@ -1,14 +1,14 @@
 {
-    "name": "@mikeham98/create-react-awesome-project",
+    "name": "create-react-awesome-project",
     "version": "0.0.1",
     "description": "A CLI to bootstrap new projects",
     "main": "src/cli.js",
     "bin": {
-        "@mikeham98/create-react-awesome-project": "bin/create-react-awesome-project",
-        "@mikeham98/crap": "bin/create-react-awesome-project",
         "create-react-awesome-project": "bin/create-react-awesome-project",
         "crap": "bin/crap"
     },
+    "homepage": "https://github.com/mikeham98/create-react-awesome-project",
+    "bugs": "https://github.com/mikeham98/create-react-awesome-project/issues",
     "publishConfig": {
         "access": "public"
     },
@@ -17,7 +17,14 @@
     },
     "keywords": [
         "cli",
-        "create-project"
+        "create-react-awesome-project",
+        "react",
+        "redux",
+        "routing",
+        "jest",
+        "testing",
+        "enzyme",
+        "crap"
     ],
     "author": "Michael Hamilton",
     "license": "MIT",
