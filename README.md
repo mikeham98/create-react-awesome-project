@@ -1,4 +1,4 @@
-# create-react-awesome-project CLI
+# 🌈 create-react-awesome-project CLI
 Setting up a react project with webpack, babel, jest/enzyme, redux and routing can be tricky.
 This project is a simplified version of create-react-app with the minimal dependencies to get a project up and running.
 
