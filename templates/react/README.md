@@ -1,0 +1,1 @@
+# Boilerplate for React projects

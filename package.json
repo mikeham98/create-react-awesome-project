@@ -1,0 +1,34 @@
+{
+    "name": "@mikeham98/create-react-awesome-project",
+    "version": "0.0.1",
+    "description": "A CLI to bootstrap my new projects",
+    "main": "src/cli.js",
+    "bin": {
+        "@mikeham98/create-react-awesome-project": "bin/create-react-awesome-project",
+        "@mikeham98/crap": "bin/create-react-awesome-project",
+        "create-react-awesome-project": "bin/create-react-awesome-project",
+        "crap": "bin/crap"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "cli",
+        "create-project"
+    ],
+    "author": "Michael Hamilton",
+    "license": "MIT",
+    "dependencies": {
+        "arg": "^4.1.1",
+        "chalk": "^2.4.2",
+        "esm": "^3.2.18",
+        "execa": "^2.0.3",
+        "inquirer": "^6.5.0",
+        "listr": "^0.14.3",
+        "ncp": "^2.0.0",
+        "pkg-install": "^1.0.0"
+    }
+}
