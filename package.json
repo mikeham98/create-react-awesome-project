@@ -1,7 +1,7 @@
 {
     "name": "@mikeham98/create-react-awesome-project",
     "version": "0.0.1",
-    "description": "A CLI to bootstrap my new projects",
+    "description": "A CLI to bootstrap new projects",
     "main": "src/cli.js",
     "bin": {
         "@mikeham98/create-react-awesome-project": "bin/create-react-awesome-project",
