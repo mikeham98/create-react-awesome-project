@@ -4,7 +4,7 @@ This project is a simplified version of create-react-app with the minimal depend
 
 ## Install
 ```
-npm i create-react-awesome-project -g
+npm install -g create-react-awesome-project
 ```
 
 ## CLI
