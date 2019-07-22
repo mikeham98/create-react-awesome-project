@@ -22,4 +22,4 @@ You can pass in the following options to do the following
 |CLI Options | Description                 |
 |------------|-----------------------------|
 | --git      | Initialize a git repository |
-| --install  | Installs dependencies       |
+| --install  | Install dependencies        |
