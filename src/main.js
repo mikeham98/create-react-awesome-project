@@ -66,6 +66,7 @@ function addReduxToPackageJson(packageJson) {
     packageJson.dependencies = {
         ...packageJson.dependencies,
         "redux": "^4.0.4",
+        "react-redux": "^7.1.0",
         "redux-thunk": "^2.3.0",
         "reselect": "^4.0.0",
     };
