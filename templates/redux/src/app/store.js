@@ -1,6 +1,5 @@
 import {applyMiddleware, combineReducers, compose, createStore} from 'redux';
 import thunk from 'redux-thunk';
-import commonReducer from './reducers/common/index.reducer';
 
 const composeEnhancers =
     process.env.NODE_ENV === 'development' &&
@@ -11,7 +10,6 @@ const composeEnhancers =
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 const staticReducers = {
-    common: commonReducer,
 };
 
 const createReducer = (asyncReducers) => {
