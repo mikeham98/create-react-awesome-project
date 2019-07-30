@@ -18,10 +18,7 @@ module.exports = {
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
-                },
-                resolve: {
-                    extensions: ['.js', '.jsx'],
-                },
+                }
             },
             {
                 test: /\.html$/,
@@ -51,9 +48,10 @@ module.exports = {
                     },
                     {
                         loader: 'css-loader', // translates CSS into CommonJS
-                        options: {
-                            modules: true,
-                        },
+                        modules: {
+                            mode: 'local',
+                            localIdentName: '[local]',
+                        }
                     },
                     {
                         loader: 'sass-loader', // compiles Sass to CSS
@@ -77,6 +75,6 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: [".js", ".jsx"],
+        extensions: [".js", ".jsx", ".json"],
     },
 };

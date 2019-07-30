@@ -6,6 +6,7 @@ import execa from 'execa';
 import Listr from 'listr';
 import {projectInstall} from 'pkg-install';
 import {reactDirectory, reduxDirectory, routingDirectory, templatesDirectory, testsDirectory} from './config';
+import {redux, routing, testing} from "./constants";
 
 const access = promisify(fs.access);
 const copy = promisify(ncp);
@@ -79,10 +80,35 @@ function addRoutingToPackageJson(packageJson) {
     };
 }
 
+function orderPackageJson(unorderedPackageJson) {
+    const orderedPackageJson = {
+        ...unorderedPackageJson,
+        dependencies: {},
+        devDependencies: {}
+    };
+    const orderKeysInObject = ['dependencies', 'devDependencies'];
+    orderKeysInObject.forEach(key => {
+        Object.keys(unorderedPackageJson[key]).sort().forEach(nestedKey => {
+            orderedPackageJson[key] = {
+                ...orderedPackageJson[key],
+                [nestedKey]: unorderedPackageJson[key][nestedKey]
+            };
+        });
+    });
+
+    return orderedPackageJson;
+}
+
+async function createReadMe(options) {
+    fs.writeFile(options.targetDirectory + '/README.md', `# ${options.packageName}`, (err) => {
+        if (err) return console.log(err);
+    });
+}
+
 async function createPackageJson(options) {
-    const testingSelected = options.reactOptions.find(e => e === 'testing');
-    const reduxSelected = options.reactOptions.find(e => e === 'redux');
-    const routingSelected = options.reactOptions.find(e => e === 'routing');
+    const testingSelected = options.reactOptions.find(e => e === testing);
+    const reduxSelected = options.reactOptions.find(e => e === redux);
+    const routingSelected = options.reactOptions.find(e => e === routing);
 
     fs.readFile(templatesDirectory + '/package.json', (err, data) => {
         // console.log('err',err);
@@ -90,7 +116,7 @@ async function createPackageJson(options) {
         if (err) {
             throw err;
         }
-        const packageJson = JSON.parse(data);
+        let packageJson = JSON.parse(data);
         if (testingSelected) {
             addTestToPackageJson(packageJson);
         }
@@ -100,15 +126,14 @@ async function createPackageJson(options) {
         if (routingSelected) {
             addRoutingToPackageJson(packageJson);
         }
-        if (options.packageName) {
-            packageJson.name = options.packageName;
-        }
+        packageJson.name = options.packageName;
         if (options.packageVersion) {
             packageJson.version = options.packageVersion;
         }
         if (options.packageDescription) {
             packageJson.description = options.packageDescription;
         }
+        packageJson = orderPackageJson(packageJson);
         fs.writeFile(options.targetDirectory + '/package.json', JSON.stringify(packageJson, null, 4), (err) => {
             if (err) return console.log(err);
         });
@@ -142,9 +167,9 @@ export async function createReactAwesomeApp(options) {
         process.exit(1);
     }
 
-    const testingSelected = options.reactOptions.find(e => e === 'testing');
-    const reduxSelected = options.reactOptions.find(e => e === 'redux');
-    const routingSelected = options.reactOptions.find(e => e === 'routing');
+    const testingSelected = options.reactOptions.find(e => e === testing);
+    const reduxSelected = options.reactOptions.find(e => e === redux);
+    const routingSelected = options.reactOptions.find(e => e === routing);
 
     const tasks = new Listr([
         {
@@ -162,6 +187,12 @@ export async function createReactAwesomeApp(options) {
             title: 'Create package.json',
             task: () => {
                 createPackageJson(options);
+            },
+        },
+        {
+            title: 'Create README.md',
+            task: () => {
+                createReadMe(options);
             },
         },
         {
@@ -186,7 +217,7 @@ export async function createReactAwesomeApp(options) {
             enabled: () => routingSelected,
         },
         {
-            title: 'Initialize dependencies',
+            title: 'Install dependencies',
             task: () => {
                 projectInstall({
                     cwd: options.targetDirectory

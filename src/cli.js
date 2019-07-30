@@ -1,6 +1,7 @@
 import arg from 'arg';
 import inquirer from 'inquirer';
 import {createReactAwesomeApp} from './main';
+import {redux, routing, testing} from "./constants";
 
 function parseArgumentsIntoOptions(rawArgs) {
     const args = arg({
@@ -41,7 +42,7 @@ async function promptForMissingOptions(options) {
         type: 'checkbox',
         name: 'reactOptions',
         message: 'Please select what options you would like enabled',
-        choices: ['redux', 'routing', 'testing'],
+        choices: [redux, routing, testing],
     });
 
     if(!options.git) {
@@ -56,12 +57,12 @@ async function promptForMissingOptions(options) {
     const answers = await inquirer.prompt(questions);
     return {
         ...options,
-        packageName: answers.packageName,
+        packageName: answers.packageName || 'react-project',
         packageVersion: answers.packageVersion,
         packageDescription: answers.packageDescription,
         reactOptions: answers.reactOptions,
         template: options.template || answers.template,
-        git: options.git || answers.git
+        git: options.git || answers.git || false
     }
 }
 
