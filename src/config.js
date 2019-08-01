@@ -1,4 +1,5 @@
 import path from 'path';
+const URL = require('url').URL;
 
 const currentFileUrl = import.meta.url;
 export const reactDirectory = path.resolve(
